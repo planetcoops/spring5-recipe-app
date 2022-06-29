@@ -1,6 +1,6 @@
 # Spring Boot Recipe Application
 
-[![CircleCI](https://circleci.com/gh/springframeworkguru/spring5-recipe-app.svg?style=svg)](https://circleci.com/gh/springframeworkguru/spring5-recipe-app)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/planetcoops/spring5-recipe-app/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/planetcoops/spring5-recipe-app/tree/master)
 
 This repository is for an example application built in my Spring Framework 5 - Beginner to Guru
 
