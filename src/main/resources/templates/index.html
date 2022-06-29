@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe App</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px">
+    <div class="row" style="justify-content: center">
+        <div class="col-md-auto">
+            <div class="card" style="border-color: deepskyblue">
+                <div class="card-heading" style="background-color: deepskyblue">
+                    <h1 class="card-title" style="margin: 20px">My Recipes!</h1>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Prep Time</th>
+                                <th>Cook Time</th>
+                                <th>Directions</th>
+                                <th>Ingredients</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="recipe : ${recipes}">
+                                <td th:text="${recipe.id}">ID</td>
+                                <td th:text="${recipe.description}">Description</td>
+                                <td th:text="${recipe.prepTime}">Prep Time</td>
+                                <td th:text="${recipe.cookTime}">Cook Time</td>
+                                <td th:text="${recipe.directions}">Directions</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ingredient</th>
+                                            <th>Amount</th>
+                                            <th>Unit of Measure</th>
+                                        </tr>
+                                        <tr th:each="ingredient : ${recipe.ingredients}">
+                                            <td th:text="${ingredient.id}">ID</td>
+                                            <td th:text="${ingredient.description}">Description</td>
+                                            <td th:text="${ingredient.amount}">Amount</td>
+                                            <td th:text="${ingredient.uom.description}">UOM</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
