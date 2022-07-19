@@ -19,6 +19,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public Recipe findById(long id) {
+        return recipeRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Set<Recipe> getRecipes() {
         log.info("getRecipes service invoked");
         Set<Recipe> recipes = new HashSet<>();

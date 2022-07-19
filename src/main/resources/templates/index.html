@@ -5,11 +5,15 @@
     <title>Recipe App</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/5.2.0-beta1/dist/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/5.2.0-beta1/dist/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px">
@@ -26,6 +30,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Description</th>
+                                <th>View</th>
                                 <th>Prep Time</th>
                                 <th>Cook Time</th>
                                 <th>Directions</th>
@@ -33,8 +38,10 @@
                             </tr>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
+                                <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                 <td th:text="${recipe.id}">ID</td>
                                 <td th:text="${recipe.description}">Description</td>
+                                <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
                                 <td th:text="${recipe.prepTime}">Prep Time</td>
                                 <td th:text="${recipe.cookTime}">Cook Time</td>
                                 <td th:text="${recipe.directions}">Directions</td>
