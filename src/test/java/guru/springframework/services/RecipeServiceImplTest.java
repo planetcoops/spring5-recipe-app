@@ -26,7 +26,7 @@ class RecipeServiceImplTest {
     @BeforeEach
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, null, null);
         Recipe recipe = new Recipe();
         HashSet<Recipe> recipesData= new HashSet<>();
         recipesData.add(recipe);
@@ -39,7 +39,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeById() throws Exception {
+    public void getRecipeById() {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
