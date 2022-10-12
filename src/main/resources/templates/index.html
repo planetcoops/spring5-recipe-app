@@ -16,6 +16,8 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/5.2.0-beta1/dist/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<!--/*@thymesVar id="ingredient" type="guru.springframework.domain.Ingredient"*/-->
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px">
     <div class="row" style="justify-content: center">
         <div class="col-md-auto">
@@ -31,6 +33,8 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                                 <th>Prep Time</th>
                                 <th>Cook Time</th>
                                 <th>Directions</th>
@@ -38,10 +42,11 @@
                             </tr>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
-                                <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                 <td th:text="${recipe.id}">ID</td>
                                 <td th:text="${recipe.description}">Description</td>
-                                <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a></td>
                                 <td th:text="${recipe.prepTime}">Prep Time</td>
                                 <td th:text="${recipe.cookTime}">Cook Time</td>
                                 <td th:text="${recipe.directions}">Directions</td>

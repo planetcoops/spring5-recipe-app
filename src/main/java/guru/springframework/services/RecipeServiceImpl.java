@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,13 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(long id) {
-        return recipeRepository.findById(id).orElse(null);
+        return recipeRepository.findById(id).orElseThrow(() -> new NotFoundException("Recipe not found: " + id));
+    }
+
+    @Override
+    @Transactional
+    public RecipeCommand findCommandById(long id) {
+        return recipeToRecipeCommand.convert(findById(id));
     }
 
     @Override
@@ -46,5 +53,10 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved Recipe Id: " + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        recipeRepository.deleteById(id);
     }
 }
