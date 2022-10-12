@@ -79,20 +79,4 @@ public class RecipeController {
         model.addAttribute("stack", sb.toString());
         return "404error";
     }
-
-    @ExceptionHandler(NumberFormatException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleNumberFormatException(HttpServletRequest request, Throwable throwable, Model model) {
-        final StringBuilder names = new StringBuilder("");
-        request.getHeaderNames().asIterator().forEachRemaining(h -> names.append(h).append(" "));
-        log.error("Handling number format exception: " + names.toString());
-        log.error("user-agent: " + request.getHeader("user-agent"));
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("404error");
-        model.addAttribute("exception", throwable);
-        StringBuilder sb = new StringBuilder();
-        Arrays.asList(throwable.getStackTrace()).forEach(e -> sb.append(e.toString()).append("\n"));
-        model.addAttribute("stack", sb.toString());
-        return "400error";
-    }
 }

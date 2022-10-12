@@ -23,15 +23,16 @@ class RecipeControllerTest {
 
     @Mock
     RecipeService recipeService;
-    RecipeController controller;
     AutoCloseable openMocks;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        controller = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(new RecipeController(recipeService))
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test

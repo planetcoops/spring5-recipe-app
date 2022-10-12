@@ -32,59 +32,39 @@ public class IngredientController {
 
     @GetMapping("recipe/{id}/ingredients")
     public String getIngredientsPage(@PathVariable String id, Model model) {
-        try {
-            model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
-        } catch (NumberFormatException e) {
-            log.error("Invalid id", e);
-        }
+        model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
         return "recipe/ingredient/list";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/show")
     public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
-        try {
-            model.addAttribute("ingredient", ingredientService.findCommandByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id)));
-        } catch (NumberFormatException e) {
-            log.error("Invalid id", e);
-        }
+        model.addAttribute("ingredient", ingredientService.findCommandByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id)));
         return "recipe/ingredient/show";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String newIngredient(@PathVariable String recipeId, Model model) {
-        try {
-            RecipeCommand recipeCommand = recipeService.findCommandById(Long.parseLong(recipeId));
-            if (recipeCommand != null) {
-                IngredientCommand ingredientCommand = new IngredientCommand();
-                ingredientCommand.setRecipeId(recipeCommand.getId());
-                model.addAttribute("ingredient", ingredientCommand);
-                ingredientCommand.setUom(new UnitOfMeasureCommand());
-                model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
-            } //todo raise exception if null
-        } catch (NumberFormatException e) {
-            log.error("Invalid id", e);
-        }
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.parseLong(recipeId));
+        if (recipeCommand != null) {
+            IngredientCommand ingredientCommand = new IngredientCommand();
+            ingredientCommand.setRecipeId(recipeCommand.getId());
+            model.addAttribute("ingredient", ingredientCommand);
+            ingredientCommand.setUom(new UnitOfMeasureCommand());
+            model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        } //todo raise exception if null
         return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
-        try {
-            model.addAttribute("ingredient", ingredientService.findCommandByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id)));
-        } catch (NumberFormatException e) {
-            log.error("Invalid id", e);
-        }
+        model.addAttribute("ingredient", ingredientService.findCommandByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id)));
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
         return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
     public String deleteRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
-        try {
-            ingredientService.deleteByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id));
-        } catch (NumberFormatException e) {
-            log.error("Invalid id", e);
-        }
+        ingredientService.deleteByRecipeIdAndId(Long.parseLong(recipeId), Long.parseLong(id));
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
