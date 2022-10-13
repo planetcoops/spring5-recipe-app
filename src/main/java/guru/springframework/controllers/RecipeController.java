@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +61,11 @@ public class RecipeController {
 
     @PostMapping("/recipe")
     //@RequestMapping(path = "/recipe", method = RequestMethod.POST)
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@Validated @ModelAttribute("recipe") RecipeCommand command, BindingResult result) {
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(e -> log.debug(e.toString()));
+            return "recipe/recipeform";
+        }
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
