@@ -25,7 +25,7 @@ jobs:
       # Then run your tests!
       - run:
           name: Test
-          command: mvn verify cobertura:cobertura
+          command: mvn verify jacoco:report
       - store_test_results:
           path: target/surefire-reports
       - run:
